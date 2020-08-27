@@ -1,0 +1,20 @@
+version: '3.5'
+
+services:
+  booking_api:
+    build: ../../
+    container_name: booking-api-local
+    environment:
+      - MONGODB=bookings_db
+      - MONGOHOST=mongodb
+      - MONGOPORT=27017
+    ports:
+      - 4000:4000
+    depends_on:
+      - mongo
+  
+  mongo:
+    image: mongo:4.2.1
+    container_name: mongo-booking-api-dev
+    ports:
+      - 27017:27017
