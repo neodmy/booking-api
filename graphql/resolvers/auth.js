@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 const User = require('../../models/user');
+const { app: { secretKey } } = require('../../config/default');
 
 module.exports = {
   createUser: async (args) => {
@@ -32,7 +33,7 @@ module.exports = {
 
     const token = jwt.sign(
       { userId: existingUser.id, email: existingUser.email },
-      'somesecretkey',
+      secretKey,
       { expiresIn: '1h' },
     );
 

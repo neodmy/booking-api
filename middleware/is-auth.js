@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+const { app: { secretKey } } = require('../config/default');
+
 module.exports = (req, res, next) => {
   const isNotAuth = () => {
     req.isAuth = false;
@@ -13,7 +15,7 @@ module.exports = (req, res, next) => {
   if (!token || token === '') isNotAuth();
 
   try {
-    const decodedToken = jwt.verify(token, 'somesecretkey');
+    const decodedToken = jwt.verify(token, secretKey);
     if (!decodedToken) isNotAuth();
 
     req.isAuth = true;

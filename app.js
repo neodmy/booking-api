@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const { graphqlHTTP } = require('express-graphql');
 const mongoose = require('mongoose');
 
+const { app: { port }, mongo: { host, port: dbPort, database } } = require('./config/default');
 const graphqlSchema = require('./graphql/schema');
 const graphqlResolvers = require('./graphql/resolvers');
 const isAuth = require('./middleware/is-auth');
@@ -21,9 +22,8 @@ app.use('/graphql', graphqlHTTP({
   graphiql: true,
 }));
 
-mongoose.connect(`mongodb://${process.env.MONGO_HOST}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}`, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(`mongodb://${host}:${dbPort}/${database}`, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-    const port = 4000;
     process.stdout.write(`App started on port ${port}\n`);
     app.listen(port);
   })
