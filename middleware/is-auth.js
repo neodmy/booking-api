@@ -9,14 +9,14 @@ module.exports = (req, res, next) => {
   };
 
   const authHeader = req.get('Authorization');
-  if (!authHeader) isNotAuth();
+  if (!authHeader) return isNotAuth();
 
   const token = authHeader.split(' ')[1];
   if (!token || token === '') isNotAuth();
 
   try {
     const decodedToken = jwt.verify(token, secretKey);
-    if (!decodedToken) isNotAuth();
+    if (!decodedToken) return isNotAuth();
 
     req.isAuth = true;
     req.userId = decodedToken.userId;
