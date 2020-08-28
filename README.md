@@ -1,6 +1,6 @@
 # booking-api
 
-A simple Node.js app using GraphQL, Express and MongoDB (with Mongoose) from the @academind [YouTube series](https://www.youtube.com/watch?v=7giZGFDGnkc&list=PL55RiY5tL51rG1x02Yyj93iypUuHYXcB_&index=1)
+A simple Node.js app using GraphQL, Express and MongoDB (with Mongoose) based on the [YouTube series](https://www.youtube.com/watch?v=7giZGFDGnkc&list=PL55RiY5tL51rG1x02Yyj93iypUuHYXcB_&index=1) from [@academind](https://github.com/academind)
 
 ## Table of content
 1. [Env](#env)
