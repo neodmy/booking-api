@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const User = require('../../models/user');
 
@@ -18,5 +19,27 @@ module.exports = {
     const { _doc: savedUser } = await user.save();
 
     return { ...savedUser, password: null };
+  },
+  login: async ({ email, password }) => {
+    const existingUser = await User.findOne({ email });
+    if (!existingUser) {
+      throw new Error('User does not exists');
+    }
+    const isEqual = await bcrypt.compare(password, existingUser.password);
+    if (!isEqual) {
+      throw new Error('Password is incorrect');
+    }
+
+    const token = jwt.sign(
+      { userId: existingUser.id, email: existingUser.email },
+      'somesecretkey',
+      { expiresIn: '1h' },
+    );
+
+    return {
+      userId: existingUser.id,
+      token,
+      tokenExpiration: 1,
+    };
   },
 };
